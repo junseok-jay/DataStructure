@@ -1,2 +1,0 @@
-hi there
-this is git push test txt
