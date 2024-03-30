@@ -31,7 +31,7 @@ int main() {
     /* equality test */
     if(st3.lastName == st2.lastName && st3.studentId == st2.studentId && st3.grade == st2.grade) /* not working */
     // 구조체는 다양한 원소를 가지고 있기 때문에 구조체의 이름가지고는 비교 할수없다
-    // 따라서, 구조체 안의 원소끼리 서로 비교해서 두개의 구조체가 같은지 비교해준다
+    // 따라서 구조체 안의 원소끼리 서로 비교해서 두개의 구조체가 같은지 비교해준다
     printf("equal\n");
     else
     printf("not equal\n");
