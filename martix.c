@@ -88,23 +88,22 @@ int main(){
     int row,col;
     printf("insert row,col : ");
     scanf("%d %d",&row,&col);
-    int **matrix_A=makematrix(row,col);
-    int **matrix_B=makematrix(row,col);
-    int **temp=makematrix(row,col);
-    rand_matrix(matrix_A,row,col);
-    rand_matrix(matrix_B,row,col);
+    int **matrix_A=makematrix(row,col); // row X col짜리 행렬 martrix_A 생성
+    int **matrix_B=makematrix(row,col); // row X col짜리 행렬 martrix_B 생성
+    int **temp=makematrix(row,col); // row X col짜리 행렬 temp 생성
+    rand_matrix(matrix_A,row,col);  // matrix_A 무작위로 초기화
+    rand_matrix(matrix_B,row,col);  // matrix_B 무작위로 초기화
     printf("matrix_A\n");
     print_matrix(matrix_A,row,col);
     printf("matrix_B\n");
     print_matrix(matrix_B,row,col);
-    print_matrix(addition_matrix(matrix_A,matrix_B,temp,row,col),row,col);
-    print_matrix(subtraction_matrix(matrix_A,matrix_B,temp,row,col),row,col);
-    print_matrix(transpose_matrix(matrix_A,temp,row,col),row,col);
-    print_matrix(transpose_matrix(matrix_B,temp,row,col),row,col);
-    print_matrix(multiply_matrix(matrix_A,matrix_B,temp,row,col),row,col);
-    free_matrix(matrix_A,row);
-    free_matrix(matrix_B,row);
-    free_matrix(temp,row);
+    print_matrix(addition_matrix(matrix_A,matrix_B,temp,row,col),row,col);  // matrix_A와 matrix_B를 더한 값을 출력
+    print_matrix(subtraction_matrix(matrix_A,matrix_B,temp,row,col),row,col);   // matrix_A와 matrix_B를 뺀 값을 출력
+    print_matrix(transpose_matrix(matrix_A,temp,row,col),row,col);  // matrix_A를 전치한 값을 출력
+    print_matrix(multiply_matrix(matrix_A,matrix_B,temp,row,col),row,col);  // matrix_A와 matrix_B를 행렬곱한 값을 출력
+    free_matrix(matrix_A,row);  // 할당된 matrix_A free
+    free_matrix(matrix_B,row);  // 할당된 matrix_B free
+    free_matrix(temp,row);  // 할당된 temp free
     printf("[----- [전준석] [2021041051] -----]");
     return 0;
 }
