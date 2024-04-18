@@ -135,7 +135,7 @@ void deQueue(QueueType *cQ, element *item)
         printf("queue is empty\n"); // 큐가 비어있는지 확인
         return;
     }
-    cQ->front=(cQ->front+1)%MAX_QUEUE_SIZE; // front를 1증가시켜 준다
+    cQ->front=(cQ->front+1)%MAX_QUEUE_SIZE; // front를 1증가시켜 준다 큐의 마지막에 도달하면 처음으로 돌아간다
     return;
 }
 
