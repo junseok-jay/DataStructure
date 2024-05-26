@@ -105,7 +105,7 @@ int main()
 		}
 
 	}while(command != 'q' && command != 'Q');
-	printf("[----- [jeon junseok] [2021041051] -----]\n");
+	printf("[----- [전준석] [2021041051] -----]\n");
 	return 1;
 }
 
@@ -125,111 +125,112 @@ int initializeBST(Node** h) {
 
 
 
-void inorderTraversal(Node* ptr)
+void inorderTraversal(Node* ptr)	// 	재귀함수를 이용한 중위순회
 {
-	if(ptr!=NULL){	
-		inorderTraversal(ptr->left);
-		printf(" [%d] ",ptr->key);
+	if(ptr!=NULL){
+		inorderTraversal(ptr->left);	// 왼쪽 자식 출력후 부모 출력후 오른쪽 자식 출력하는 구조
+		printf(" [%d] ",ptr->key);	
 		inorderTraversal(ptr->right);
 	}
 }
 
-void preorderTraversal(Node* ptr)
+void preorderTraversal(Node* ptr)	//	재귀함수를 이용한 전위순회
 {
 	if(ptr!=NULL){
-		printf(" [%d] ",ptr->key);
+		printf(" [%d] ",ptr->key);	// 부모 출력후 왼쪽 자식 출력후 오른쪽 자식 출력하는 구조
 		preorderTraversal(ptr->left);
 		preorderTraversal(ptr->right);
 	}
 }
 
-void postorderTraversal(Node* ptr)
+void postorderTraversal(Node* ptr)	//	재귀함수를 이용한 후위순회
 {
 	if(ptr!=NULL){
-		postorderTraversal(ptr->left);
+		postorderTraversal(ptr->left); // 왼쪽 자식 출력후 오른쪽 자식 출력후 부모 출력하는 구조
 		postorderTraversal(ptr->right);
 		printf(" [%d] ",ptr->key);
 	}
 }
 
 
-int insert(Node* head, int key)
+int insert(Node* head, int key)	
 {
-	Node* ptr=(Node*)malloc(sizeof(Node));
-	ptr->key=key;
-    ptr->left=NULL;
+	Node* ptr=(Node*)malloc(sizeof(Node));	// 새 노드 동적할당
+	ptr->key=key;	// 새 노드key를 입력받은 key로 설정
+    ptr->left=NULL;	// 노드 초기화
     ptr->right=NULL;
 
-	if(head->left==NULL){
+	if(head->left==NULL){	// 루트노드가 없을때
 		head->left=ptr;
 		return 0;
 	}
 
-	Node* p=head->left;
+	head=head->left;	// 루트노드가 있을때
+	// 받은 포인터 head를 리프노드까지 이동하기 위한 포인터로 사용
 	
-	while(1){
-		if(key>p->key){
-			if(p->right==NULL){
-				p->right=ptr;
+	while(1){	// 키값을 비교하여 크면 오른쪽 자식 작으면 왼쪽 자식으로 이동
+		if(key>head->key){	//	키값이 더 크면 오른쪽 자식으로 이동
+			if(head->right==NULL){	// 리프노드까지 도달했을떄 새 노드를 연결
+				head->right=ptr;
 				break;
 			}
-			p=p->right;
+			head=head->right;
 		}
-		else{
-			if(p->left==NULL){
-				p->left=ptr;
+		else{	// 키값이 더 작으면 왼쪽 자식으로 이동
+			if(head->left==NULL){	// 리프노드까지 도달했을떄 새 노드를 연결
+				head->left=ptr;
 				break;
 			}
-			p=p->left;
+			head=head->left;
 		}
 	}
 	return 0;
 }
 
-int deleteLeafNode(Node* head, int key)
+int deleteLeafNode(Node* head, int key)	// 키 값이 같은 리프노드를 삭제
 {
-    Node* p=head->left;
-    Node* parent=head;
+    Node* p=head->left;	// 루트를 가리키는 포인터
+    Node* parent=head;	// 부모를 가리키는 포인터
 
-    while(p!=NULL && p->key!=key){
+    while(p!=NULL && p->key!=key){	// 키값이 같은 노드를 찾거나 리프노드 까지 도달할때 까지 반복
         parent=p;
         if(key>p->key) p=p->right;
         else p=p->left;
     }
 
-	if(p==NULL){
+	if(p==NULL){	// 키값이 같은 노드가 없을때
 		printf("tree do not have this key\n");
 		return 0;
 	}
-    if(p->left==NULL && p->right==NULL){
-        if(parent->left==p) {
+    if(p->left==NULL && p->right==NULL){	// 리프노드일때
+        if(parent->left==p) {	// 삭제해야하는 노드가 부모의 왼쪽 자식일때
             free(p);
             parent->left=NULL;
         }
-        else {
+        else {	// 삭제해야하는 노드가 부모의 오른쪽 자식일때
             free(p);
             parent->right=NULL;
         }
     }
-    else{
+    else{	// 리프노드가 아닐때
         printf("Node [%d] is not a leaf node\n",key);
         return 0;
     }
     return 0;
 }
 
-Node* searchRecursive(Node* ptr, int key)
+Node* searchRecursive(Node* ptr, int key)	// 재귀함수를 이용한 탐색
 {
-    if(ptr==NULL) return NULL;
-    if(ptr->key==key) return ptr;
+    if(ptr==NULL) return NULL;	// 키값이 같은 노드가 없을때 NULL 반환
+    if(ptr->key==key) return ptr;	// 키값이 같은 노드를 찾았을때 해당 노드 반환
     if(key<ptr->key) return searchRecursive(ptr->left,key);
     else return searchRecursive(ptr->right,key);
 }
 
-Node* searchIterative(Node* head, int key)
+Node* searchIterative(Node* head, int key)	// 재귀함수를 이용하지 않고 반복적인 탐색
 {
     Node*p=head->left;
-    while(p!=NULL){
+    while(p!=NULL){	// 키값이 같은 노드를 찾거나 리프노드 까지 도달할때 까지 반복
         if(key==p->key){
             return p;
         }
@@ -244,11 +245,13 @@ Node* searchIterative(Node* head, int key)
 }
 
 
-int freeBST(Node* head)
+int freeBST(Node* head)	// 동적할당된 노드들을 해제
 {
 	if(head != NULL){
 		freeBST(head->left);
 		if(head->right!=head) freeBST(head->right);
+		// 헤드노드를 따로 만들지 않고 노드를 재활용하여 왼쪽을 루트노드를 가르키고 오른쪽을 자신을 가르키게 하여 왼쪽만 사용하게 만듬
+		// 따라서 루트노드의 경우 오른쪽을 해제하지 않도록 조건문을 추가함
 		free(head);
 	}
 	return 0;
