@@ -204,7 +204,7 @@ void reset_flag(Graph **g){ // 그래프의 flag를 초기화하는 함수
     }
 }
 
-void dfs (Graph **g,int start){ // 깊이 우선 탐색 함수 (deep first search) 재귀적으로 구현 (recursive)
+void dfs (Graph **g,int start){ // 깊이 우선 탐색 함수 (depth first search) 재귀적으로 구현 (recursive)
     g[start]->flag=true;    // 탐색할 vertex의 flag를 true로 변경
     printf("[%d]",start);
     Node *pn=g[start]->link;    // vertex의 edge로서 다음 vertex를 가리킴
